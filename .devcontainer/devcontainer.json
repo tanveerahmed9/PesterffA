@@ -1,0 +1,27 @@
+{
+  "name": "Pester PowerShell Testing",
+  "image": "mcr.microsoft.com/powershell:latest",
+  "features": {
+    "ghcr.io/devcontainers/features/git:1": {}
+  },
+  "remoteUser": "root",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-vscode.powershell"
+      ],
+      "settings": {
+        "powershell.codeFormatting.Preset": "OTBS",
+        "powershell.enableProfileLoading": true
+      }
+    }
+  },
+  "postCreateCommand": "pwsh -Command 'Install-Module Pester -Force -SkipPublisherCheck; Get-Module Pester -ListAvailable'",
+  "mounts": [
+    "source=${localEnv:HOME}${localEnv:USERPROFILE}/.ssh,target=/root/.ssh,type=bind,consistency=cached"
+  ],
+  "forwardPorts": [],
+  "remoteEnv": {
+    "PATH": "/root/.local/bin:${containerEnv:PATH}"
+  }
+}
